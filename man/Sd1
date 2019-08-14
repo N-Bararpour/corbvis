@@ -1,0 +1,81 @@
+\name{Sd1}
+\alias{Sd1}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Small dim (1); variable ~ batch association
+}
+\description{
+Investigate linear association between variable and experimental run in the larget eigenvector. Suggested for the data structure where the dim(1)< dim(2)
+}
+\usage{
+Sd1(m)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{m}{
+%%     ~~Describe \code{m} here~~
+}
+}
+\details{
+%%  ~~ If necessary, more details than the description above ~~
+}
+\value{
+data frame
+}
+\references{
+%% ~put references to the literature/web site here ~
+}
+\author{
+%%  ~~who you are~~
+}
+\note{
+%%  ~~further notes~~
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+%% ~~objects to See Also as \code{\link{help}}, ~~~
+}
+\examples{
+batch<- rep(gl(4,5,lables=c(1:4)),1)
+m <-data.frame(batch,matrix(rnorm(100000),nrow=20))
+
+Sd1<- function (m)
+{
+    a <- sweep(m[-1], 2, colMeans(m[-1]), "-")
+    b <- svd(a)
+    x <- b$u
+    y <- b$v
+    z <- t(y)
+    c <- m[-1]
+    d <- svd(c)
+    n <- d$v
+    xx <- t(n)
+    df <- data.frame(z)
+    dg <- data.frame(xx)
+    corr <- sapply(1:ncol(df), function(i) {
+        fit <- lm(df[, i] ~ as.factor(m[, 1]))
+        return(summary(fit)$adj.r.squared)
+    })
+    corr.nscale <- sapply(1:ncol(dg), function(i) {
+        fit <- lm(dg[, i] ~ as.factor(m[, 1]))
+        return(summary(fit)$adj.r.squared)
+    })
+    pdf("corPlot_f1.pdf")
+    par(mfrow = c(2, 1))
+    p1 <- plot(seq(along = corr), corr, xlab = "variables", main = "scaled")
+    p2 <- plot(seq(along = corr.nscale), corr.nscale, xlab = "variables",
+        main = "non-scaled")
+    names(corr) <- names(m[-1])
+    names(corr.nscale) <- names(m[-1])
+    write.csv(corr, file = "correlation_data_f1_scaled.csv")
+    write.csv(corr.nscale, file = "f1_nscaled.csv")
+    print(p1)
+    print(p2)
+    dev.off()
+  }
+}
+
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }
