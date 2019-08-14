@@ -1,0 +1,13 @@
+Package: corbvis
+Type: Package
+Title: visuaization of data structure 
+Version: 0.1.0
+Author: NASIM.BARARPOUR
+Maintainer: Nasim Bararpour <Nasimbararpour@gmail.com>
+Description: visulaize the structure of multivariate data by PCA and by Scree plot, RLA plot abd profile plot
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: ber,ggfortify,factoextra,ggplot2,NormalizeMets
+suggestes: MASS, limma,installr,BiocManage,impute,Biobase,pcaMethods
