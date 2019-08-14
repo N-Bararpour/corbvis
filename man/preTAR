@@ -1,0 +1,57 @@
+\name{preTAR}
+\alias{preTAR}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Pre-processing of Targeted metabolomics data
+}
+\description{
+Impute missing value by the minimum value detected for each variable in the entire dataset. Suggested for Targeted metabolomics dataset.
+}
+\usage{
+new_data<- (data.frame(apply(m,2,preNTAR)))
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{x}{
+%%     ~~Describe \code{x} here~~
+}
+}
+\details{
+%%  ~~ If necessary, more details than the description above ~~
+}
+\value{
+%%  ~Describe the value returned
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
+\references{
+%% ~put references to the literature/web site here ~
+}
+\author{
+%%  ~~who you are~~
+}
+\note{
+%%  ~~further notes~~
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+%% ~~objects to See Also as \code{\link{help}}, ~~~
+}
+\examples{
+m<- data.frame(v1=c(1,NA,6,10,30),v2=c(2,8,NA,15,20))
+new_data<- data.frame(apply(m,2,PreTAR))
+preTAR<- function (x){
+  x[x == 0] <- NA
+  x<-as.numeric(as.character(x))
+  x[is.na(x)] = min(x[x >0], na.rm=TRUE)
+  x
+}
+  }
+
+
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }
