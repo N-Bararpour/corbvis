@@ -1,0 +1,55 @@
+\name{preNTAR}
+\alias{preNTAR}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Pre-processing of Non-targetted metabolomics dataset
+}
+\description{
+Pre-processing of metabolomics data in which missing value replaced by the lowest detected value in whole dataset. This function suggested for Non-Targeted metabolomics platform.
+}
+\usage{
+new_data<- t(data.frame(apply(m,1,preNTAR)))
+}
+
+\arguments{
+  \item{x}{
+
+}
+}
+\details{
+
+}
+\value{
+variable
+}
+\references{
+
+}
+\author{
+
+}
+\note{
+
+}
+
+
+
+\seealso{
+
+}
+\examples{
+m<- data.frame(v1=c(1,NA,6,10,30),v2=c(2,8,NA,15,20))
+new_data<- t(data.frame(apply(m,1,preNTAR)))
+
+preNTAR<- function (x)
+{
+    x[is.na(x)] <- 0
+    small <- min(length(x))
+    x[x == 0] <- NA
+    x[is.na(x)] <- small
+    x
+  }
+}
+
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }
